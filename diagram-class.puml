@@ -1,0 +1,58 @@
+@startuml
+
+class User {
+    +id: int 
+    +fistname: string 
+    +lastname: string 
+    +email: string 
+    +password: string 
+    +role: string 
+    +createdDate: date
+    +tickets: Ticket[]
+}
+
+class Ticket {
+    +id: int
+    +user: User
+    +name: string 
+    +priority: int
+    +status: int
+    +createdDate: date
+    +updateDate: date
+}
+
+class MessageTicket {
+    +id: int
+    +ticket: Ticket
+    +user: User
+    +text: string
+    +createdDate: date
+}
+
+class Standard {
+    +createTicket(): Ticket
+}
+
+class User {
+    +answerTicket(Ticket ticket): void
+}
+
+class Technician {
+    +modifyStandard(Standard standard): void
+}
+
+class Admin {
+    +modifyTechnician(Technician technician): void
+    +createTechnician(): Technician
+    +changeRole(User user): void
+}
+
+User "1" -down- "0..*" Ticket
+User "1" -down- "0..*" MessageTicket
+Ticket "1" -right- "1..*" MessageTicket
+
+Technician -|> User
+Standard --|> User
+Admin --|> Technician
+
+@enduml

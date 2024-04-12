@@ -1,0 +1,47 @@
+@startuml
+left to right direction
+
+skinparam componentBorderColor transparent
+component " " as horizontalAling {
+    actor "Utilisateur Standard" as user
+    actor "Technicien" as tech
+    actor "Administrateur" as admin
+
+    package "API Help Ticket" as ht {
+        usecase "Se connecter" as login
+        usecase "Créer un compte" as createAccount
+        usecase "Créer des tickets" as createTicket
+        usecase "Consulte ses propres tickets" as showOwnTicket
+        usecase "Consulte tous les tickets" as showAllTicket
+        usecase "Dialogue concernant les Tickets" as dialogAboutTicket
+        usecase "Gère les comptes Utilisateur" as manageUser
+        usecase "Gère les comptes Technicien" as manageTech
+
+        (createTicket) ..> (login) : includes
+        (showOwnTicket) ..> (login) : includes
+        (showAllTicket) ..> (login) : includes
+        (dialogAboutTicket) ..> (login) : includes
+        (manageUser) ..> (login) : includes
+        (manageTech) ..> (login) : includes
+
+        user -- (createAccount)
+
+        user -- (createTicket)
+
+        user -- (showOwnTicket)
+
+        tech -- (showAllTicket)
+        admin -- (showAllTicket)
+
+        user -- (dialogAboutTicket)
+        tech -- (dialogAboutTicket)
+
+
+        tech -- (manageUser)
+        admin -- (manageUser)
+
+        admin -- (manageTech)
+    }
+}
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+
+class User {
+    +id: int 
+    +fistname: string 
+    +lastname: string 
+    +email: string 
+    +password: string 
+    +role: string 
+    +createdDate: date
+}
+
+class Ticket {
+    +id: int
+    +userId: int
+    +name: string 
+    +priority: int
+    +status: int
+    +createdDate: date
+    +updateDate: date
+}
+
+class MessageTicket {
+    +id: int
+    +ticketId: int
+    +userId: int
+    +text: string
+    +createdDate: date
+}
+
+User "1" -down- "0..*" Ticket
+User "1" -down- "0..*" MessageTicket
+Ticket "1" -right- "1..*" MessageTicket
+
+@enduml
